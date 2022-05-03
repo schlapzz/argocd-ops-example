@@ -1,0 +1,10 @@
+---
+apiVersion: v2
+name: argocd-example-app-subchart
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+dependencies:
+- name: argocd-example-app
+  version: 0.1.0
+  repository: https://gitlab.puzzle.ch/api/v4/projects/2643/packages/helm/stable
