@@ -1,0 +1,7 @@
+stage: DEV
+theme: squid
+
+deployment:
+  tag: latest
+  image: registry.puzzle.ch/cicd/argocd-example-app
+  replicas: 1
