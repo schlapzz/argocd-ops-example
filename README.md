@@ -18,7 +18,8 @@ Das Token ist nur bei der erstellung Sichtbar und kann zu einem späteren Zeitpu
 
 Zum schluss das Helm Repository mit ArgoCD verbinden
 ```
-argocd repo add https://gitlab.puzzle.ch/api/v4/projects/2643/packages/helm/stable --name argocd-exmaple-helm --type helm  --username <tokne_name> --password <token> --ssh-private-key-path deploy_key 
+argocd repo add https://gitlab.puzzle.ch/api/v4/projects/2643/packages/helm/stable --name argocd-exmaple-helm \
+--type helm  --username <tokne_name> --password <token> --ssh-private-key-path deploy_key 
 ```
 
 ### ArgoCD Example Application Ops Repository verbinden 
