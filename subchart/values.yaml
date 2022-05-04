@@ -1,6 +1,10 @@
 stage: DEV
 theme: squid
 
+ingress:
+  host: argocd-example-dev.ocp.cloudscale.puzzle.ch
+  public: true
+
 deployment:
   tag: latest
   image: registry.puzzle.ch/cicd/argocd-example-app
