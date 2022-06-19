@@ -49,3 +49,34 @@ Es existieren drei verschiedene Umgebungen in welche via ArgoCD deployt wird.
 
 Für jede Umgebung wird in ArgoCD eine Applikation erstellt welche auf dieses Repository und den 
 entsprechenden Branch und Values File verweist.
+
+## ApplicationSets
+Für ein Multi Environment Deployment kann auch folgendes ApplicationSet verwendet werden. Dazu muss der ApplicationSet Controller installiert sein.
+
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: exapp
+spec:
+  generators:
+    - list:
+        elements:
+          - stage: prod
+          - stage: int
+          - stage: dev
+  template:
+    metadata:
+      name: exapp-{{stage}}
+    spec:
+      source:
+        repoURL: https://gitlab.puzzle.ch/pitc-cicd/argocd-example-ops.git
+        targetRevision: {{stage}}
+        path: argocd-example-app
+        helm:
+          values: values-{{stage}}.yaml
+      project: pitc-apps
+      destination:
+        server: 'https://api.ocp.aws.puzzle.ch:6443'
+        namespace: pitc-cicd-{{stage}}
+```
