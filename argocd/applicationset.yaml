@@ -23,9 +23,9 @@ spec:
       name: exapp-{{stage}}-{{customer}}
     spec:
       source:
-        repoURL: https://gitlab.puzzle.ch/pitc-cicd/argocd-example-ops.git
+        repoURL: https://github.com/schlapzz/argocd-ops-example.git
         targetRevision: propagation
-        path: argocd-example-app
+        path: subchart
         helm:
           valueFiles:
           - common/values.yaml
