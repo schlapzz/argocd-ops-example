@@ -30,7 +30,7 @@ spec:
           valueFiles:
           - common/values.yaml
           - variants/customer-{{customer}}/values.yaml
-          - variants/customer-{{customer}}/values.yaml
+          - variants/{{stage}}/values.yaml
           - envs/{{stage}}-{{customer}}/values.yaml
           - envs/{{stage}}-{{customer}}/version.yaml
       project: pitc-apps
