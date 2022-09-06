@@ -1,3 +1,0 @@
-ingress:
-  public: false
-  host: argocd-example.ocp.cloudscale.puzzle.ch

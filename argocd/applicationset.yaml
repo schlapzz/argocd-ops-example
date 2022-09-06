@@ -6,20 +6,34 @@ spec:
   generators:
     - list:
         elements:
-          - stage: prod
-          - stage: int
-          - stage: dev
+          - customer: A
+            stage: prod
+            clusterName: ocp4-cloudscale-production
+          # - customer: B
+          #   stage: prod
+          #   clusterName: ocp4-cloudscale-production
+          # - customer: A
+          #   stage: staging
+          #   clusterName:  ocp4-cloudscale-staging
+          # - customer: B
+          #   stage: staging
+          #   clusterName:  ocp4-cloudscale-staging
   template:
     metadata:
-      name: exapp-{{stage}}
+      name: exapp-{{stage}}-{{customer}}
     spec:
       source:
         repoURL: https://gitlab.puzzle.ch/pitc-cicd/argocd-example-ops.git
-        targetRevision: {{stage}}
+        targetRevision: propagation
         path: argocd-example-app
         helm:
-          values: values-{{stage}}.yaml
+          valueFiles:
+          - common/values.yaml
+          - variants/customer-{{customer}}/values.yaml
+          - variants/customer-{{customer}}/values.yaml
+          - envs/{{stage}}-{{customer}}/values.yaml
+          - envs/{{stage}}-{{customer}}/version.yaml
       project: pitc-apps
       destination:
-        server: 'https://api.ocp.aws.puzzle.ch:6443'
-        namespace: pitc-cicd-{{stage}}
+        name: ocp4-cloudscale-production
+        namespace: pitc-cicd-argocd-example-{{stage}}-{{customer}}
