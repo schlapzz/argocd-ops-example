@@ -6,7 +6,7 @@ spec:
   generators:
     - list:
         elements:
-          - customer: A
+          - customer: a
             stage: prod
             clusterName: ocp4-cloudscale-production
           # - customer: B
