@@ -8,16 +8,16 @@ spec:
         elements:
           - customer: a
             stage: prod
-            clusterName: ocp4-cloudscale-production
-          # - customer: B
-          #   stage: prod
-          #   clusterName: ocp4-cloudscale-production
-          # - customer: A
-          #   stage: staging
-          #   clusterName:  ocp4-cloudscale-staging
-          # - customer: B
-          #   stage: staging
-          #   clusterName:  ocp4-cloudscale-staging
+            cluster: ocp4-cloudscale-production
+          - customer: b
+            stage: prod
+            cluster: ocp4-cloudscale-production
+          - customer: a
+            stage: staging
+            cluster:  ocp4-cloudscale-staging
+          - customer: b
+            stage: staging
+            cluster:  ocp4-cloudscale-staging
   template:
     metadata:
       name: exapp-{{stage}}-{{customer}}
@@ -35,7 +35,7 @@ spec:
           - envs/{{stage}}-{{customer}}/version.yaml
       project: pitc-apps
       destination:
-        name: ocp4-cloudscale-production
+        name: "{{cluster}}"
         namespace: pitc-cicd-argocd-example-{{stage}}-{{customer}}
       syncPolicy:
         automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
