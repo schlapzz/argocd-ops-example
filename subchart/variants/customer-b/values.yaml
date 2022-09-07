@@ -1,1 +1,2 @@
-theme: gopher
+argocd-example-app:
+  theme: gopher

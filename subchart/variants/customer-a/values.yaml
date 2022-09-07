@@ -1,1 +1,2 @@
-theme: squid
+argocd-example-app:
+  theme: squid

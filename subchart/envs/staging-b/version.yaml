@@ -1,2 +1,3 @@
-deployment:
-  tag: latest
+argocd-example-app:
+  deployment:
+    tag: latest
