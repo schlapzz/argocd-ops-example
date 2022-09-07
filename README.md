@@ -62,21 +62,42 @@ spec:
   generators:
     - list:
         elements:
-          - stage: prod
-          - stage: int
-          - stage: dev
+          - customer: a
+            stage: prod
+            cluster: ocp4-cloudscale-production
+          - customer: b
+            stage: prod
+            cluster: ocp4-cloudscale-production
+          - customer: a
+            stage: staging
+            cluster:  ocp4-cloudscale-staging
+          - customer: b
+            stage: staging
+            cluster:  ocp4-cloudscale-staging
   template:
     metadata:
-      name: exapp-{{stage}}
+      name: exapp-{{stage}}-{{customer}}
     spec:
       source:
-        repoURL: https://gitlab.puzzle.ch/pitc-cicd/argocd-example-ops.git
-        targetRevision: {{stage}}
-        path: argocd-example-app
+        repoURL: https://github.com/schlapzz/argocd-ops-example.git
+        targetRevision: propagation
+        path: subchart
         helm:
-          values: values-{{stage}}.yaml
+          valueFiles:
+          - common/values.yaml
+          - variants/customer-{{customer}}/values.yaml
+          - variants/{{stage}}/values.yaml
+          - envs/{{stage}}-{{customer}}/values.yaml
+          - envs/{{stage}}-{{customer}}/version.yaml
       project: pitc-apps
       destination:
-        server: 'https://api.ocp.aws.puzzle.ch:6443'
-        namespace: pitc-cicd-{{stage}}
+        name: "{{cluster}}"
+        namespace: pitc-cicd-argocd-example-{{stage}}-{{customer}}
+      syncPolicy:
+        automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
+          prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
+          selfHeal: true # Specifies if partial app sync should be executed when resources are changed only in target Kubernetes cluster and no git change detected ( false by default ).
+          allowEmpty: false # Allows deleting all application resources during automatic syncing ( false by default ).
+        syncOptions:     # Sync options which modifies sync behavior
+        - CreateNamespace=true
 ```
