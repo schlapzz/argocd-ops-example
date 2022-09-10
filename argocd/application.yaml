@@ -6,7 +6,7 @@ metadata:
 spec:
   destination:
     name: ocp4-cloudscale-production
-    namespace: pitc-cicd-argocd-example-prod-a
+    namespace: pitc-cicd-argocd-example-app
   project: pitc-apps
   source:
     helm:
