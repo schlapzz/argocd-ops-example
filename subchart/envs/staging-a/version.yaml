@@ -1,3 +1,0 @@
-argocd-example-app:
-  deployment:
-    tag: latest

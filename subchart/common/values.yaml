@@ -1,7 +1,0 @@
-argocd-example-app:
-  ingress:
-    public: true
-
-  deployment:
-    image: registry.puzzle.ch/cicd/argocd-example-app
-    replicas: 1
